@@ -6,11 +6,13 @@
 #include "Markup.h"
 #include "AuxiliaryMethods.h"
 #include "Expenses.h"
+#include "TimeManager.h"
 
 using namespace std;
 
 class ExpensesFile
 {
+    TimeManager timeManager;
     int lastExpenseID;
     string FileName="";
 

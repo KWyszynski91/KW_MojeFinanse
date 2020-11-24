@@ -6,11 +6,13 @@
 #include "Markup.h"
 #include "AuxiliaryMethods.h"
 #include "Incomes.h"
+#include "TimeManager.h"
 
 using namespace std;
 
 class IncomesFile
 {
+    TimeManager timeManager;
     int lastIncomeID;
     string FileName="";
 
