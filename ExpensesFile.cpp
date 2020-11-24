@@ -4,6 +4,10 @@ void ExpensesFile::saveExpenseToFile(Expenses expense)
 {
     float amount=expense.getAmount();
     string strAmount=AuxiliaryMethods::floatToStringConversion(amount);
+    int date=expense.getDate();
+    string strDate=AuxiliaryMethods::intToStringConversion(date);
+    string strDateForm=timeManager.useDateFormatForFile(strDate);
+
     CMarkup xml;
     bool fileExists = xml.Load(FileName);      //WCZYTAJ PLIK "expenses.xml"
 
@@ -18,7 +22,7 @@ void ExpensesFile::saveExpenseToFile(Expenses expense)
     xml.IntoElem();                                 //PRACUJ NA GALEZI: "Expense"
     xml.AddElem("ExpenseId", expense.getExpenseId());  //DODAJ ELEMENT "ExpenseId"
     xml.AddElem("UserId", expense.getUserId());      //DODAJ ELEMENT "UserId"
-    xml.AddElem("Date", expense.getDate());          //DODAJ ELEMENT "Date"
+    xml.AddElem("Date", strDateForm);          //DODAJ ELEMENT "Date"
     xml.AddElem("Item", expense.getItem());          //DODAJ ELEMENT "Item"
     xml.AddElem("Amount", strAmount);                //DODAJ ELEMENT "Amount"
     xml.Save(FileName);
@@ -60,7 +64,7 @@ vector <Expenses> ExpensesFile::loadExpensesForLogedUserFromFile(int logedUserID
             expenseId=AuxiliaryMethods::stringToIntConversion(strExpenseId);
             xml.FindElem("Date");
             strDate=xml.GetData();
-            date=AuxiliaryMethods::stringToIntConversion(strDate);
+            date=timeManager.useDataFormatForVector(strDate);
             xml.FindElem("Item");
             strItem=xml.GetData();
             xml.FindElem("Amount");

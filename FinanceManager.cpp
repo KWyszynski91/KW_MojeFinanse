@@ -4,7 +4,7 @@ Incomes FinanceManager::getNewIncomeData()
 {
     Incomes income;
 
-    string item="";
+    string item="", strAmount="";
     int operationDate=0;
     float amount=0;
     char choice;
@@ -36,7 +36,8 @@ Incomes FinanceManager::getNewIncomeData()
     item=AuxiliaryMethods::changeFirstLetterToLargeAndRestToSmall(item);
 
     cout << "Enter the value of item: ";
-    cin>>amount;
+    cin>>strAmount;
+    amount=AuxiliaryMethods::changeCommaToDot(strAmount);
 
     income.setItem(item);
     income.setAmount(amount);

@@ -20,6 +20,8 @@ public:
     int readTheDate();
     int returnFirstDayOfCurrentMonth(int currentDate);
     int theLastDayOfPreviousMonth();
+    string useDateFormatForFile(string date);
+    int useDataFormatForVector(string dateFormFile);
 };
 
 #endif

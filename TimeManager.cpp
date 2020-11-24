@@ -193,3 +193,52 @@ int TimeManager::returnFirstDayOfCurrentMonth(int currentDate)
     int firstOfMonth=AuxiliaryMethods::stringToIntConversion(strFirstOfMonth);
     return firstOfMonth;
 }
+
+string TimeManager::useDateFormatForFile(string date)
+{
+    string dateForFile="  ";
+    string strYear=date.substr(0,4);
+    dateForFile.insert(0, strYear);
+    dateForFile[4]='-';
+    string strMonth=date.substr(4,2);
+    dateForFile.insert(5, strMonth);
+    dateForFile[7]='-';
+    string strDay=date.substr(6,2);
+    dateForFile.insert(8, strDay);
+
+    return dateForFile;
+}
+
+int TimeManager::useDataFormatForVector(string dateFormFile)
+{
+    string singleData="";
+    int stringLong=dateFormFile.length();
+    int correctDate=0, year=0, month=0, day=0;
+    int numberOfSingleData=1;
+
+    for (int signPosition=0; signPosition<=stringLong; signPosition++)
+    {
+        if((dateFormFile[signPosition]!='-')&&(signPosition!=stringLong))
+        {
+            singleData+=dateFormFile[signPosition];
+        }
+        else
+        {
+            switch(numberOfSingleData)
+            {
+            case 1:
+                year=AuxiliaryMethods::stringToIntConversion(singleData);
+                break;
+            case 2:
+                month=AuxiliaryMethods::stringToIntConversion(singleData);
+                break;
+            case 3:
+                day=AuxiliaryMethods::stringToIntConversion(singleData);
+            }
+            singleData="";
+            numberOfSingleData++;
+        }
+    }
+    correctDate=putPartsDateTogether(year, month, day);
+    return correctDate;
+}

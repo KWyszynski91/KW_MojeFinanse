@@ -4,6 +4,10 @@ void IncomesFile::saveIncomeToFile(Incomes income)
 {
     float amount=income.getAmount();
     string strAmount=AuxiliaryMethods::floatToStringConversion(amount);
+    int date=income.getDate();
+    string strDate=AuxiliaryMethods::intToStringConversion(date);
+    string strDateForm=timeManager.useDateFormatForFile(strDate);
+
     CMarkup xml;
     bool fileExists = xml.Load(FileName);      //WCZYTAJ PLIK "incomes.xml"
 
@@ -18,7 +22,7 @@ void IncomesFile::saveIncomeToFile(Incomes income)
     xml.IntoElem();                                 //PRACUJ NA GALEZI: "Income"
     xml.AddElem("IncomeId", income.getIncomeId());  //DODAJ ELEMENT "IncomeId"
     xml.AddElem("UserId", income.getUserId());      //DODAJ ELEMENT "UserId"
-    xml.AddElem("Date", income.getDate());          //DODAJ ELEMENT "Date"
+    xml.AddElem("Date", strDateForm);               //DODAJ ELEMENT "Date"
     xml.AddElem("Item", income.getItem());          //DODAJ ELEMENT "Item"
     xml.AddElem("Amount", strAmount);                //DODAJ ELEMENT "Amount"
     xml.Save(FileName);
@@ -60,7 +64,7 @@ vector <Incomes> IncomesFile::loadIncomesForLogedUserFromFile(int logedUserID)
             incomeId=AuxiliaryMethods::stringToIntConversion(strIncomeId);
             xml.FindElem("Date");
             strDate=xml.GetData();
-            date=AuxiliaryMethods::stringToIntConversion(strDate);
+            date=timeManager.useDataFormatForVector(strDate);
             xml.FindElem("Item");
             strItem=xml.GetData();
             xml.FindElem("Amount");
